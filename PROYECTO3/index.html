@@ -19,8 +19,11 @@
         }
 
         a-scene {
-            width: 100% !important;
-            height: 100% !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
         #mensaje {
@@ -41,7 +44,6 @@
 
             const video = document.querySelector('#ar-video');
             const arTarget = document.querySelector('#ar-target');
-            const scene = document.querySelector('a-scene');
 
             // 🔊 AUDIO
             const activarAudio = () => {
@@ -60,15 +62,6 @@
 
             arTarget.addEventListener('targetLost', () => {
                 video.pause();
-            });
-
-            // 🔄 SOLUCIÓN CLAVE: REAJUSTE AL GIRAR
-            window.addEventListener('orientationchange', () => {
-                setTimeout(() => {
-                    scene.renderer.setSize(window.innerWidth, window.innerHeight);
-                    scene.camera.aspect = window.innerWidth / window.innerHeight;
-                    scene.camera.updateProjectionMatrix();
-                }, 300);
             });
 
         });
@@ -94,7 +87,7 @@
 
 <a-scene 
     embedded
-    mindar-image="imageTargetSrc: ./marker.mind;" 
+    mindar-image="imageTargetSrc: ./marker.mind; autoStart: true;" 
     vr-mode-ui="enabled: false" 
     device-orientation-permission-ui="enabled: false" 
     renderer="colorManagement: true;"
